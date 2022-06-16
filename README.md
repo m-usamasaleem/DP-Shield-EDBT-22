@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Image privacy demo
 
 ## Step 1: Create conda environment
@@ -23,3 +24,6 @@
   * Command on Linux: "export FLASK_ENV=development"
 * Run command "flask run"
 * Navigate to the link printed in the console
+=======
+# DP-Shield-EDBT-22
+>>>>>>> c362dd3621b632c66b65fe58c44058adba44a8d8
