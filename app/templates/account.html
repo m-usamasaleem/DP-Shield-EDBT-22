@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>My Account</title>
+{% endblock %}
+
+{% block content %}
+<div>
+    {% if current_user.is_authenticated %}
+        <h1>Signed in as {{ current_user.username }}</h1>
+    {% else %}
+        <h1>Sign in above</h1>
+    {% endif %}
+</div>
+{% endblock %}

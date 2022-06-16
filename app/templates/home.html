@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Demo Home</title>
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <br>    
+        <img id="DPSHIELD" src="../static/img/DPSHIELD.png" class="mx-auto d-block">
+        <p class="mx-auto d-block" style="width: 70%; font-size: large; margin-top: 0.5cm;">
+            With the increased usage of social media and surveillance cameras, an immense amount of image data is captured and shared nowadays.  
+            Image data may contain sensitive information, such as face, which can be misused by adversaries.   
+            Popular image privacy solutions such as pixelization and blurring are prone to inference attacks.</p>
+        
+        <p class="mx-auto d-block" style="width: 70%; font-size: large;">In this demo, we present DP-Shield, an interactive framework for image obfuscation under the rigorous notion of differential privacy.  
+            DP-Shield showcases our recently proposed methods, namely DP-Pix and DP-SVD, and also includes two baseline methods for comparison. 
+            The audience will be able to explore those methods with real-world face image datasets.  
+            Furthermore, DP-Shield integrates widely used image quality measures and practical risk measures (i.e., face recognition) to illustrate the efficacy of our methods.</p>
+
+        <p class="mx-auto d-block" style="width: 70%; font-size: large;">This work is done by <a href="https://musama-saleem.github.io/" target="_blank">Muhammad Usama Saleem</a>
+            and <a href="https://dominickrei.github.io/" target="_blank">Dominick Reilly</a>, under the 
+            supervision of <a href="https://webpages.uncc.edu/lfan4/" target="_blank">Dr. Liyue Fan</a> at UNC Charlotte.</p>
+
+    </div>
+{% endblock %}

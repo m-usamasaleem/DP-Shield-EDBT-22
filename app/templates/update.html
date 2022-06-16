@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Upload new File</title>
+{% endblock %}
+
+{% block content %}
+  <div id="maincontainer" class="container mt-4" style="padding-bottom: 100px;">
+
+    <form id="uploadform" action="/update" method="post" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Upload Award Sheet</h5>
+              <p class="card-text">You should upload the awards csv below. This should be directly from NORM (the sheet Dr. Shin gives)</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              <div class="custom-file">
+                <input name="awdupload" type="file" class="custom-file-input" id="customFile1">
+                <label class="custom-file-label" for="customFile">Upload Award CSV</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Upload Proposal Sheet</h5>
+              <p class="card-text">You should upload the proposal csv below. This should be directly from NORM (the sheet Dr. Shin gives)</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              <div class="custom-file">
+                <input name="propupload" type="file" class="custom-file-input" id="customFile2">
+                <label class="custom-file-label" for="customFile">Upload Proposal CSV</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="checkcsv" type="submit" class="btn btn-primary btn-lg btn-block mt-4">Upload and Validate CSV's</button>
+      <div id='errormsg' class="alert alert-danger text-center mt-2" role="alert" style="display: none;">You're not supposed to see this</div>
+
+    </form>
+  </div>
+
+  <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+  <script type="text/javascript" src='../static/js/updating.js'></script>
+
+{% endblock %}

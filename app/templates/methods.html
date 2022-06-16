@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Privacy Methods</title>
+    <link href="../static/css/methodscss.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <div class="container center" style="padding-top: 50px;">
+            <div class="row">
+                <div class="col-sm">
+                <h4 class="text-center">Step 1: Select input image</h4>
+                <img id="inputImageDisplay" src="../static/img/casia_id_74.png" class="mx-auto d-block">
+
+                <div style="padding-top: 10px;">
+                    <select id="inputDropdown" class="form-select mx-auto d-block" onchange="dropdownChange()">
+                        <option value="casia_id_74" selected>CASIA-WebFace-ID74.png</option>
+                        <option value="casia_id_77">CASIA-WebFace-ID77.png</option>
+                        <option value="casia_id_89">CASIA-WebFace-ID89.png</option>
+                        <option value="casia_id_97">CASIA-WebFace-ID97.png</option>
+                        <option value="casia_id_99">CASIA-WebFace-ID99.png</option>
+                        <option value="vggface2_id_17">VGGFace2-ID17.png</option>
+                        <option value="vggface2_id_20">VGGFace2-ID20.png</option>
+                        <option value="vggface2_id_26">VGGFace2-ID26.png</option>
+                        <option value="vggface2_id_29">VGGFace2-ID29.png</option>
+                        <option value="vggface2_id_95">VGGFace2-ID95.png</option>
+                    </select>
+                </div>
+                </div>
+                <div class="col-sm">
+                <h4 class="text-center">Step 2: Select privacy method</h4>
+
+                <div class="text-center">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio1" value="dpsamp">
+                        <label class="form-check-label" for="inlineRadio1" style="font-size: x-large;">DP-Samp</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio2" value="dppix">
+                        <label class="form-check-label" for="inlineRadio2" style="font-size: x-large;">DP-Pix</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio3" value="dpsvd">
+                        <label class="form-check-label" for="inlineRadio3" style="font-size: x-large;">DP-SVD</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio4" value="snow">
+                        <label class="form-check-label" for="inlineRadio4" style="font-size: x-large;">Snow</label>
+                    </div>
+                </div>
+
+                <!-- DP-Samp Selection -->
+                <div id="dpsampDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="dpsampEpsilonSlider" style="font-size: larger;">$$\Large{\epsilon=}$$</label>
+                        <output style="font-size: x-large;">0.01</output>
+                        <input type="range" class="custom-range" value="0.01" min="0.01" max="10" step=0.01 id="dpsampEpsilonSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dpsampClusterSzSlider">$$\Large{k=}$$</label>
+                        <output style="font-size: x-large;">30</output>
+                        <input type="range" class="custom-range" value="30" min="4" max="48" step=1 id="dpsampClusterSzSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dpsampNumPixSlider">$$\Large{m=}$$</label>
+                        <output style="font-size: x-large;">1</output>
+                        <input type="range" class="custom-range" value="1" min="1" max="5" step="1" id="dpsampNumPixSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                <!-- DPPix Selection -->
+                <div id="dppixDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="dppixEpsilonSlider">$$\Large{\epsilon=}$$</label>
+                        <output style="font-size: x-large;">0.01</output>
+                        <input type="range" class="custom-range" value="0.01" min="0.01" max="10" step=0.01 id="dppixEpsilonSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dppixBlockSzSlider">$$\Large{b=}$$</label>
+                        <output style="font-size: x-large;">6</output>
+                        <input type="range" class="custom-range" value="6" min="2" max="12" step="1" id="dppixBlockSzSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dppixNumPixSlider">$$\Large{m=}$$</label>
+                        <output style="font-size: x-large;">1</output>
+                        <input type="range" class="custom-range" value="1" min="1" max="5" step="1" id="dppixNumPixSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                <!-- DPSVD Selection -->
+                <div id="dpsvdDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="dpsvdEpsilonSlider">$$\Large{\epsilon=}$$</label>
+                        <output style="font-size: x-large;">0.01</output>
+                        <input type="range" class="custom-range" value="0.01" min="0.01" max="10" step=0.01 id="dpsvdEpsilonSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dpsvdEigenSzSlider">$$\Large{i=}$$</label>
+                        <output style="font-size: x-large;">6</output>
+                        <input type="range" class="custom-range" value="4" min="2" max="30" step="1" id="dpsvdEigenSzSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                <!-- Snow Selection -->
+                <div id="snowDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="snowDeltaSlider">$$\Large{\delta=}$$</label>
+                        <output style="font-size: x-large;">0.5</output>
+                        <input type="range" class="custom-range" value="0.5" min="0" max="1" step="0.05" id="snowDeltaSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="containter-fluid" style="padding-top: 25px;">
+            <button type="button" id="btnGenPrivImage" class="btn btn-primary btn-lg btn-block" disabled>Step 3: Generate private image</button>
+            <hr class="dashed">
+        </div>
+
+        <meta id="im_timestamp" data-name="{{timestamp}}">
+
+        <div class="container-fluid">
+            <!-- DPSamp Visuals -->
+            <div id="dpsampVisuals" class="hide">
+                <div class="row">
+                    <div class="col-sm">
+                        <h4 class="text-center">Input Image</h4>
+                        <img id="dpsampInputIm" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Sampled Image</h4>
+                        <img id="dpsampSampledIm" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Obfuscated Image</h4>
+                        <img id="dpsampPrivateImage" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                        <h5 class="text-center" id="dpsampMSE">MSE: -1</h5>
+                        <h5 class="text-center" id="dpsampSSIM">SSIM: -1</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DPPix Visuals -->
+            <div id="dppixVisuals" class="hide">
+                <div class="row">
+                    <div class="col-sm">
+                        <h4 class="text-center">Input Image</h4>
+                        <img id="dppixInputIm" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Pixelized</h4>
+                        <img id="dppixNoDP" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Obfuscated Image</h4>
+                        <img id="dppixPrivateImage" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                        <h5 class="text-center" id="dppixMSE">MSE: -1</h5>
+                        <h5 class="text-center" id="dppixSSIM">SSIM: -1</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DPSVD Visuals -->
+            <div id="dpsvdVisuals" class="hide">
+                <div class="row">
+                    <div class="col-sm">
+                        <h4 class="text-center">Input Image</h4>
+                        <img id="dpsvdInputIm" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Eigen-reconstruction</h4>
+                        <img id="dpsvdNoDP" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Obfuscated Image</h4>
+                        <img id="dpsvdPrivateImage" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                        <h5 class="text-center" id="dpsvdMSE">MSE: -1</h5>
+                        <h5 class="text-center" id="dpsvdSSIM">SSIM: -1</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Snow Visuals -->
+            <div id="snowVisuals" class="hide">
+                <div class="row">
+                    <div class="col-sm">
+                        <h4 class="text-center">Input Image</h4>
+                        <img id="snowInputIm" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                    </div>
+                    <div class="col-sm">
+                        <h4 class="text-center">Obfuscated Image</h4>
+                        <img id="snowPrivateImage" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                        <h5 class="text-center" id="snowMSE">MSE: -1</h5>
+                        <h5 class="text-center" id="snowSSIM">SSIM: -1</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attack results -->
+        <div id="privacyAttackVisuals" class="hide">
+            <hr>
+            <h3 class="text-center">Re-Identification attack</h3>
+            <h5 id="realIdText" style="color:rgb(0, 255, 0); margin-bottom: 0.5cm;" class="text-center">True ID: -1</h5>
+            
+            <h3 class="text-center"><b>Top 5 predicted IDs (Input Image)</b></h3>
+
+            <div class="row">
+                <div class="col-sm">
+                    <h5 id="inpTableText1" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="inpTableIm1" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="inpTableText2" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="inpTableIm2" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="inpTableText3" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="inpTableIm3" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="inpTableText4" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="inpTableIm4" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="inpTableText5" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="inpTableIm5" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+            </div>
+
+            <h3 class="text-center" style="margin-top: 1cm;"><b>Top 5 predicted IDs (Obfuscated Image)</b></h3>
+
+            <div class="row">
+                <div class="col-sm">
+                    <h5 id="tableText1" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="tableIm1" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="tableText2" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="tableIm2" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="tableText3" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="tableIm3" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="tableText4" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="tableIm4" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+                <div class="col-sm">
+                    <h5 id="tableText5" class="text-center">ID: -1 Probability=50%</h5>
+                    <img id="tableIm5" src="../static/img/placeholder.png" class="img-fluid border mx-auto d-block">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src='../static/js/methods.js'></script>
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+{% endblock %}

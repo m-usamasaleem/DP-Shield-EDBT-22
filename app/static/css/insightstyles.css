@@ -1,0 +1,5 @@
+.navbar .navbar-nav>.open>a, 
+.navbar .navbar-nav>.open>a:focus, 
+.navbar .navbar-nav>.open>a:hover {
+    background-color: #b3a369;
+}

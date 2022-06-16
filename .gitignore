@@ -1,0 +1,9 @@
+/app/privacy_methods/__pycache__/
+/app/__pycache__
+/__pycache__
+/.vscode
+/.ipynb_checkpoints
+/Untitled.ipynb
+/app/static/uploads/
+/app/static/classification_models/*
+/app/static/dataset_faces/

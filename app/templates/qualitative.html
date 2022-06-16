@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Privacy Attacks</title>
+    <link href="../static/css/methodscss.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <h1>Sample Images</h1>
+        <div>
+            <div style="padding-top: 10px; padding-bottom: 1cm;">
+                <select id="inputDropdown" class="form-select mx-auto d-block" onchange="dropdownChange()">
+                    <option value="noneselected" selected>Select Dataset</option>
+                    <option value="vggfaces2">VGGFace2</option>
+                    <option value="casiafaces">CASIA-WebFace</option>
+                </select>
+            </div>
+    
+            <div id="vggfaces2" class="hide">
+                <img id="vggfacesSamples" src="../static/img/vggface2.png" class="mx-auto d-block">
+            </div>
+    
+            <div id="casiafaces" class="hide">
+                <img id="vggfacesSamples" src="../static/img/casiaface.png" class="mx-auto d-block">
+            </div>
+    
+            <!-- <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRpF-iiOKGGM6ik3TzIESkvxl2cW7K4LZHvTU3H-jSd55WwXnamU3TgGB9TrfPQWvSHKvKW0Q_7MJtQ/pubchart?oid=933845502&amp;format=interactive"></iframe> -->
+        </div>
+    </div>
+
+    <script type="text/javascript" src='../static/js/sampleimages.js'></script>
+{% endblock %}
+

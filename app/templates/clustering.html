@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Clustering Visualizations</title>
+    <link href="../static/css/methodscss.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <div class="container center" style="padding-top: 50px;">
+            <div class="row">
+                <div class="col-sm">
+                    <h4 class="text-center">Step 1: Select dataset</h4>
+
+                    <div class="text-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="datasetSelection" id="inlineRadio1_1" value="vggface" checked>
+                            <label class="form-check-label" for="inlineRadio1_1" style="font-size: x-large;">VGGFace2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="datasetSelection" id="inlineRadio2_1" value="casiawebface">
+                            <label class="form-check-label" for="inlineRadio2_2" style="font-size: x-large;">CASIA-WebFace</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                <h4 class="text-center">Step 2: Select privacy method</h4>
+
+                <div class="text-center">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio1" value="dpsamp">
+                        <label class="form-check-label" for="inlineRadio1" style="font-size: x-large;">DP-Samp</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio2" value="dppix">
+                        <label class="form-check-label" for="inlineRadio2" style="font-size: x-large;">DP-Pix</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio3" value="dpsvd">
+                        <label class="form-check-label" for="inlineRadio3" style="font-size: x-large;">DP-SVD</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="methodSelection" id="inlineRadio4" value="snow">
+                        <label class="form-check-label" for="inlineRadio4" style="font-size: x-large;">Snow</label>
+                    </div>
+                </div>
+
+                <!-- DP-Samp Selection -->
+                <div id="dpsampDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="dpsampEpsilonSlider" style="font-size: larger;">$$\Large{\epsilon=}$$</label>
+                        <output style="font-size: x-large;">0.01</output>
+                        <input type="range" class="custom-range" value="0.01" min="0.01" max="10" step=0.01 id="dpsampEpsilonSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dpsampClusterSzSlider">$$\Large{k=}$$</label>
+                        <output style="font-size: x-large;">30</output>
+                        <input type="range" class="custom-range" value="30" min="4" max="48" step=1 id="dpsampClusterSzSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dpsampNumPixSlider">$$\Large{m=}$$</label>
+                        <output style="font-size: x-large;">1</output>
+                        <input type="range" class="custom-range" value="1" min="1" max="5" step="1" id="dpsampNumPixSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                <!-- DPPix Selection -->
+                <div id="dppixDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="dppixEpsilonSlider">$$\Large{\epsilon=}$$</label>
+                        <output style="font-size: x-large;">0.01</output>
+                        <input type="range" class="custom-range" value="0.01" min="0.01" max="10" step=0.01 id="dppixEpsilonSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dppixBlockSzSlider">$$\Large{b=}$$</label>
+                        <output style="font-size: x-large;">6</output>
+                        <input type="range" class="custom-range" value="6" min="2" max="12" step="1" id="dppixBlockSzSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dppixNumPixSlider">$$\Large{m=}$$</label>
+                        <output style="font-size: x-large;">1</output>
+                        <input type="range" class="custom-range" value="1" min="1" max="5" step="1" id="dppixNumPixSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                <!-- DPSVD Selection -->
+                <div id="dpsvdDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="dpsvdEpsilonSlider">$$\Large{\epsilon=}$$</label>
+                        <output style="font-size: x-large;">0.01</output>
+                        <input type="range" class="custom-range" value="0.01" min="0.01" max="10" step=0.01 id="dpsvdEpsilonSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+
+                    <div>
+                        <label for="dpsvdEigenSzSlider">$$\Large{i=}$$</label>
+                        <output style="font-size: x-large;">6</output>
+                        <input type="range" class="custom-range" value="4" min="2" max="30" step="1" id="dpsvdEigenSzSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                <!-- Snow Selection -->
+                <div id="snowDiv" class="hide" style="margin-top: 1cm;">
+                    <h4 class="text-center">Step 2.5: Select parameters</h4>
+                    <div>
+                        <label for="snowDeltaSlider">$$\Large{\delta=}$$</label>
+                        <output style="font-size: x-large;">0.5</output>
+                        <input type="range" class="custom-range" value="0.5" min="0" max="1" step="0.05" id="snowDeltaSlider" oninput="this.previousElementSibling.value = this.value">
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="containter-fluid" style="padding-top: 25px;">
+            <button type="button" id="btnDoClustering" class="btn btn-primary btn-lg btn-block" disabled>Step 3: Project data samples</button>
+            <hr class="dashed">
+        </div>
+
+        <meta id="im_timestamp" data-name="{{timestamp}}">
+        
+        <div id="clusteringLoading" class="hide">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEBUGGING CODE -->
+        <div id="visImageDisplay" class="hide">
+            <div class="row">
+                <div class="col-sm">
+                    <h2 style="text-align: center;">Clean Images</h2>
+                </div>
+
+                <div class="col-sm">
+                    <h2 style="text-align: center;">Obfuscated Images</h2>
+                </div>
+            </div>
+
+            <img id="visImage" src="../static/img/test.png" class="img-fluid mx-auto d-block">
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src='../static/js/clustering.js'></script>
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+{% endblock %}

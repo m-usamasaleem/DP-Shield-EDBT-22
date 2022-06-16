@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>Insight Sign In</title>
+  <link href="../static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <form class="form-signin text-center" style="max-width: 330px; margin: auto;" action="" method="POST">
+    <img class="mb-4" src="../static/img/uncc.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <div style="margin: 0px 0px 25px 0px;">
+      For privacy demo: username is <b>user</b> password is <b>password</b>
+    </div>
+
+    <label for="inputUser" class="sr-only">Username</label>
+    <input name="username" type="username" id="inputUser" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+
+    {% if error %}
+      <div class="alert alert-danger" role="alert" style="margin: 20px 0px 0px 0px;">
+        {{ error }}
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
